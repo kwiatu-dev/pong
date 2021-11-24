@@ -67,8 +67,8 @@ class Pong{
         this.movmentDirectionY = this.getRandomDirection();
         this.ball.style.top = `${this.getRandomY()}px`;
         this.ball.style.left = `${(document.documentElement.clientWidth / 2) - (this.ballWidth / 2)}px`;
-        console.log(this.ball.style.top);
-        console.log(this.ball.style.left);
+        //console.log(this.ball.style.top);
+        //console.log(this.ball.style.left);
     }
 
     setBarStartPositions = () =>{
@@ -124,15 +124,33 @@ class Pong{
         if((ballLeft + this.ballWidth / 2) < documentWidth / 2){
             //console.log('lewa strona');
 
+            //Górna część piłki znajduję się na wysokości bandy
             if((ballTop + movmentY > barOneTop) && (ballTop +  movmentY < barOneTop + this.barHeight)){
-                //Sprawdzenie czy piłka napewno jest przed bandą
-                if(ballLeft > this.barMargin + this.barWidth / 2){
-                    //Uderzenie piłki o lewą bandę
-                    if(ballLeft + movmentX < this.barMargin + this.barWidth){
-                        this.ball.style.left = `${this.barMargin + this.barWidth}px`;
-                        this.changeMovmentDirectionX();
-                        console.log('dotknięta lewa banda');
-                        return;
+                if((ballTop + movmentY > barOneTop) && (ballTop +  movmentY < barOneTop + this.barHeight)){
+                    //Sprawdzenie czy piłka napewno jest przed bandą
+                    if(ballLeft > this.barMargin + this.barWidth / 2){
+                        //Uderzenie piłki o lewą bandę
+                        if(ballLeft + movmentX < this.barMargin + this.barWidth){
+                            this.ball.style.left = `${this.barMargin + this.barWidth}px`;
+                            this.changeMovmentDirectionX();
+                            //console.log('dotknięta lewa banda');
+                            return;
+                        }
+                    }
+                }
+            }
+            //Dolna część paska znajduję się na wysokości bandy
+            else if((ballTop + this.ballHeight + movmentY > barOneTop) && (ballTop + this.ballHeight +  movmentY < barOneTop + this.barHeight)){
+                if((ballTop + movmentY > barOneTop) && (ballTop +  movmentY < barOneTop + this.barHeight)){
+                    //Sprawdzenie czy piłka napewno jest przed bandą
+                    if(ballLeft > this.barMargin + this.barWidth / 2){
+                        //Uderzenie piłki o lewą bandę
+                        if(ballLeft + movmentX < this.barMargin + this.barWidth){
+                            this.ball.style.left = `${this.barMargin + this.barWidth}px`;
+                            this.changeMovmentDirectionX();
+                            //console.log('dotknięta lewa banda');
+                            return;
+                        }
                     }
                 }
             }
@@ -141,6 +159,7 @@ class Pong{
         else if((ballLeft + this.ballWidth / 2) > documentWidth / 2){
             //console.log('prawa strona');
 
+            //Górna część piłki jest na wysokości bandy
             if((ballTop + movmentY > barTwoTop) && (ballTop +  movmentY < barTwoTop + this.barHeight)){
                 //Sprawdzenie czy piłka napewno jest przed bandą
                 if(ballLeft + this.ballWidth < documentWidth - (this.barMargin + this.barWidth / 2)){
@@ -148,7 +167,19 @@ class Pong{
                     if(ballLeft + this.ballWidth + movmentX > documentWidth - (this.barMargin + this.barWidth)){
                         this.ball.style.left = `${document.documentElement.clientWidth - this.barMargin - this.ballWidth}px`;
                         this.changeMovmentDirectionX();
-                        console.log('dotknięta prawa banda');
+                        //console.log('dotknięta prawa banda');
+                        return;
+                    }
+                }
+            }
+            else if((ballTop + this.ballHeight + movmentY > barTwoTop) && (ballTop + this.ballHeight +  movmentY < barTwoTop + this.barHeight)){
+                //Sprawdzenie czy piłka napewno jest przed bandą
+                if(ballLeft + this.ballWidth < documentWidth - (this.barMargin + this.barWidth / 2)){
+                    //Uderzenie piłki o prawą bandę
+                    if(ballLeft + this.ballWidth + movmentX > documentWidth - (this.barMargin + this.barWidth)){
+                        this.ball.style.left = `${document.documentElement.clientWidth - this.barMargin - this.ballWidth}px`;
+                        this.changeMovmentDirectionX();
+                        //console.log('dotknięta prawa banda');
                         return;
                     }
                 }
